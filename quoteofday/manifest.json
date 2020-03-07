@@ -1,0 +1,10 @@
+{
+  "id": "quoteofday",
+  "name": "QuoteOfDay",
+  "version": "1.0.0",
+  "author": "Mira",
+  "entrypoint": {
+    "js": "main.js",
+    "css": "main.css"
+  }
+}
