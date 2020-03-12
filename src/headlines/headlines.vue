@@ -20,7 +20,7 @@ export default {
       intervalId: null,
       config: {
         country: "us",
-        apiKey: null,
+        apiKey: "9505456c3079487d8e944eb9d07a84f8",
         switchTime: 10000,
       },
     }
@@ -86,14 +86,14 @@ export default {
 
 <style lang="sass">
 #--ID--
-  font-size: 20px
+  font-size: 30px
   font-family: "Roboto", sans-serif
   color: #FFFFFF
-  width: 500px
+  width: 720px
 
   img
-    width: 500px
-    height: 250px
+    width: 720px
+    height: 420px
     object-fit: cover
   .title
     margin: 0.5rem 0
