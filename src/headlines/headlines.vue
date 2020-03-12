@@ -16,11 +16,7 @@ export default {
     return {
       articles: [],
       articleIndex: 0,
-      currentArticle: {
-        image: "",
-        title: "",
-        description: "",
-      },
+      currentArticle: null,
       intervalId: null,
       config: {
         country: "us",
