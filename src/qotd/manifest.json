@@ -1,6 +1,6 @@
 {
-  "id": "topheadlines",
-  "name": "TopHeadlines",
+  "id": "mira-qotd",
+  "name": "Mira Quote of the Day",
   "version": "1.0.0",
   "author": "Mira",
   "entrypoint": {
