@@ -1,103 +1,101 @@
 <template lang="pug">
 #--ID--
-  h2  Top Headlines:
-  div(style='width=100')
-    ul(v-for='article in articles')
-      h4 {{ article.title }}
-      img(v-bind:src='article.image' height='250' width='500')
-      p  {{article.description}} 
-      br
+  .article(v-if="currentArticle != null")
+    img.img(v-bind:src="currentArticle.image")
+    h4.title {{ currentArticle.title }}
+    p.description  {{ currentArticle.description }} 
 </template>
 
 <script>
-async function makeRequest(method, url) {
-  return new Promise(function(resolve, reject) {
-    let xhr = new XMLHttpRequest()
-    xhr.open(method, url)
-    xhr.onload = function() {
-      if (this.status >= 200 && this.status < 300) {
-        resolve(xhr.response)
-      } else {
-        reject({
-          status: this.status,
-          statusText: xhr.statusText,
-        })
-      }
-    }
-    xhr.onerror = function() {
-      reject({
-        status: this.status,
-        statusText: xhr.statusText,
-      })
-    }
-    xhr.send()
-  })
-}
+const axios = require("axios").default
 
 export default {
   data() {
     return {
       articles: [],
-      quoteText: "",
-      quoteAuthor: "",
+      articleIndex: 0,
+      currentArticle: {
+        image: "",
+        title: "",
+        description: "",
+      },
+      intervalId: null,
+      config: {
+        country: "us",
+        apiKey: null,
+        switchTime: 10000,
+      },
     }
   },
-  methods: {
-    async makeRequest(method, url) {
-      return new Promise(function(resolve, reject) {
-        let xhr = new XMLHttpRequest()
-        xhr.open(method, url)
-        xhr.onload = function() {
-          if (this.status >= 200 && this.status < 300) {
-            resolve(xhr.response)
-          } else {
-            reject({
-              status: this.status,
-              statusText: xhr.statusText,
-            })
-          }
-        }
-        xhr.onerror = function() {
-          reject({
-            status: this.status,
-            statusText: xhr.statusText,
-          })
-        }
-        xhr.send()
-      })
+
+  watch: {
+    config: () => {
+      this.fetchNews()
     },
   },
-  async mounted() {
-    const url =
-      "http://newsapi.org/v2/top-headlines?country=us&apiKey=9505456c3079487d8e944eb9d07a84f8"
-    const result = await makeRequest("GET", url)
-    const data = JSON.parse(result)
-    const article_data = data["articles"]
-    console.log(article_data)
-    for (let i = 0; i < 10; i++) {
-      if (article_data[i].urlToImage == null || article_data[i].description == "") {
-        continue
-      }
 
-      if (this.articles.length == 4) {
-        break
+  methods: {
+    switchArticle() {
+      this.articleIndex = (this.articleIndex + 1) % this.articles.length
+      this.currentArticle = this.articles[this.articleIndex]
+    },
+
+    fetchNews() {
+      if (this.config.apiKey) {
+        axios
+          .get(
+            `http://newsapi.org/v2/top-headlines?country=${this.config.country}&apiKey=${this.config.apiKey}`,
+          )
+          .then(resp => {
+            clearInterval(this.intervalId)
+            this.articles = []
+            this.articleIndex = 0
+
+            const articleData = resp.data.articles
+
+            for (let i = 0; i < 10; i++) {
+              if (articleData[i].urlToImage && articleData[i].description) {
+                if (this.articles.length == 4) {
+                  break
+                }
+
+                this.articles.push({
+                  title: articleData[i].title,
+                  image: articleData[i].urlToImage,
+                  description: articleData[i].description,
+                })
+              }
+            }
+
+            this.currentArticle = this.articles[this.articleIndex]
+            this.intervalId = setInterval(() => {
+              this.switchArticle()
+            }, this.config.switchTime)
+          })
       }
-      this.articles.push({
-        title: article_data[i].title,
-        image: article_data[i].urlToImage,
-        description: article_data[i].description,
-      })
-    }
+    },
+  },
+
+  mounted() {
+    this.fetchNews()
+    setInterval(() => {
+      this.fetchNews()
+    }, 3600 * 12)
   },
 }
 </script>
 
 <style lang="sass">
-@import url("https://fonts.googleapis.com/css?family=Roboto")
-
 #--ID--
   font-size: 20px
-  font-family: "Times New Roman"
-  color: #daf6ff
-  text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0)
+  font-family: "Roboto", sans-serif
+  color: #FFFFFF
+  width: 500px
+
+  img
+    width: 500px
+    height: 250px
+    object-fit: cover
+  .title
+    margin: 0.5rem 0
 </style>
