@@ -9,6 +9,8 @@
 <script>
 const axios = require("axios").default
 
+const washingtonPostRegex = /(https?:).*.washingtonpost.com\/resizer.*smart\//g
+
 export default {
   data() {
     return {
@@ -44,7 +46,7 @@ export default {
       if (this.config.apiKey) {
         axios
           .get(
-            `http://newsapi.org/v2/top-headlines?country=${this.config.country}&apiKey=${this.config.apiKey}`,
+            `https://newsapi.org/v2/top-headlines?country=${this.config.country}&apiKey=${this.config.apiKey}`,
           )
           .then(resp => {
             clearInterval(this.intervalId)
@@ -59,9 +61,10 @@ export default {
                   break
                 }
 
+                const imageUrl = articleData[i].urlToImage.replace(washingtonPostRegex, "https://")
                 this.articles.push({
                   title: articleData[i].title,
-                  image: articleData[i].urlToImage,
+                  image: imageUrl,
                   description: articleData[i].description,
                 })
               }

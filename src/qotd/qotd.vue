@@ -18,8 +18,7 @@ export default {
 
   methods: {
     update() {
-      axios.get("http://quotes.rest/qod.json").then(resp => {
-        console.log()
+      axios.get("https://quotes.rest/qod.json").then(resp => {
         const quote = resp.data.contents.quotes[0].quote
         const author = resp.data.contents.quotes[0].author
         this.quoteText = quote
