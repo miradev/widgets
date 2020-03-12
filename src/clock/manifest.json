@@ -1,10 +1,13 @@
 {
-  "id": "mira-qotd",
-  "name": "Quote Of The Day",
+  "id": "mira-clock",
+  "name": "Clock",
   "version": "1.0.0",
   "author": "Mira",
   "entrypoint": {
     "js": "main.js",
     "css": "main.css"
+  },
+  "configKeys": {
+    "format": "string"
   }
 }
