@@ -24,6 +24,12 @@ export default {
     }
   },
 
+  watch: {
+    config: function() {
+      this.update()
+    },
+  },
+
   methods: {
     units() {
       if (this.config.units && this.config.units.toLowerCase() === "f") {
