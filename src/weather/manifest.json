@@ -1,0 +1,16 @@
+{
+  "id": "mira-weather",
+  "name": "Mira Weather",
+  "version": "1.0.0",
+  "author": "Mira",
+  "entrypoint": {
+    "js": "main.js",
+    "css": "main.css"
+  },
+  "configKeys": {
+    "secretKey": "string",
+    "latitude": "number",
+    "longitude": "number",
+    "units": "string"
+  }
+}
