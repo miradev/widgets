@@ -64,7 +64,7 @@ export default {
 #--ID--
   padding: 2rem
   font-size: 30px
-  font-family: "Times New Roman", sans-serif
+  font-family: "Roboto", sans-serif
   color: #ffffff
 
   .title
