@@ -1,6 +1,6 @@
 {
-  "id": "mira-image_of_day",
-  "name": "Mira Image of Day",
+  "id": "mira-wordofday",
+  "name": "Mira Word of Day",
   "version": "1.0.0",
   "author": "Mira",
   "entrypoint": {
