@@ -1,0 +1,10 @@
+{
+  "id": "mira-stocks",
+  "name": "Mira Stock Index Tracker",
+  "version": "1.0.0",
+  "author": "Mira",
+  "entrypoint": {
+    "js": "main.js",
+    "css": "main.css"
+  }
+}
