@@ -32,7 +32,7 @@ export default {
     this.update()
     setInterval(() => {
       this.update()
-    }, 3600 * 3)
+    }, 3600 * 3 * 1000)
   },
 }
 </script>

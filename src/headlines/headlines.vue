@@ -79,7 +79,7 @@ export default {
     this.fetchNews()
     setInterval(() => {
       this.fetchNews()
-    }, 3600 * 12)
+    }, 3600 * 12 * 1000)
   },
 }
 </script>

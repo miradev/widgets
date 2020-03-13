@@ -1,0 +1,13 @@
+{
+  "id": "mira-unsplash",
+  "name": "Mira Unsplash",
+  "version": "1.0.0",
+  "author": "Mira",
+  "entrypoint": {
+    "js": "main.js",
+    "css": "main.css"
+  },
+  "configKeys": {
+    "accessKey": "string"
+  }
+}
